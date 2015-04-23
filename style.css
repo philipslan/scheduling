@@ -1,0 +1,16 @@
+h1{
+	text-align: center;
+	padding-top: 2%;
+}
+.month{
+	padding-top: 2%;
+}
+.month *{
+	border: 1px solid black;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+.month *:hover{
+	border: 1px solid #37FDFC;
+}
