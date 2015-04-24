@@ -1,23 +1,30 @@
 $( document ).ready(function(){
-  months();
   arraymon=[];
+  makeMonths();
   $(".mon").click(function(){
     a= $(this).html();
+    one= new Date(date.getFullYear(), getMonthIndex(a),1);
     if ($(this).css('background-color') == "rgb(55, 253, 252)"){
       $(this).css('background-color','white');
-      $(this).css('border', '1px solid black');
-      arraymon.remove(a);
+      removeMonth(one.getMonth());
+      console.log(arraymon);
+      if (arraymon.length==0){
+        $(".weekselector").fadeOut();
+      }
     }
     else{
       $(this).css('background', '#37FDFC');
-      arraymon.push(a);
+      arraymon.push(one);
+      createWeek(one);
+      console.log(arraymon);
+      $(".weekselector").fadeIn();
     }
   });
-
 });
 
-function months(){
-  var date = new Date();
+var date = new Date();
+
+function makeMonths(){
   var monthNum= date.getMonth();
   var i= monthNum;
   var j= 0;
@@ -30,28 +37,40 @@ function months(){
   } while(i != monthNum)  
 }
 
-Array.prototype.remove = function() {
-  var what, a = arguments, L = a.length, ax;
-  while (L && this.length) {
-    what = a[--L];
-    while ((ax = this.indexOf(what)) !== -1) {
-      this.splice(ax, 1);
+function removeMonth(index){
+  for (i=0; i<arraymon.length; i++){
+    if (arraymon[i].getMonth()==index){
+      arraymon.splice(i,1);
     }
   }
-  return this;
-};
+}
+
+function getMonthIndex(fmonth){
+  for(i=0; i<month.length; i++){
+    if (month[i]==fmonth){
+      return i;
+    }
+  }
+}
+
+function createWeek(firstday){
+  if(firstday.getDay() != 0){
+    a= firstday.getMonth();
+    week= new Date(firstday.getFullYear(), firstday.getMonth(),8-firstday.getDay());
+    week1 = new Date(firstday.getFullYear(), firstday.getMonth, week.getDate()+6);
+    
+    do {
+      week= new Date(firstday.getFullYear(), firstday.getMonth(),8-firstday.getDay());
+      week1 = new Date(firstday.getFullYear(), firstday.getMonth, week.getDate()+6);
+    }while(week.getMonth()==a)
+      
+      $(".weeks").append( "<br/>"+week1);
+      month[week1.getMonth()];
+    
+  }
+}
 
 // Datastructs
-var month = [];
-month[0] = "Jan";
-month[1] = "Feb";
-month[2] = "Mar";
-month[3] = "Apr";
-month[4] = "May";
-month[5] = "Jun";
-month[6] = "Jul";
-month[7] = "Aug";
-month[8] = "Sept";
-month[9] = "Oct";
-month[10] = "Nov";
-month[11] = "Dec";
+var month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
+var day = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
+
