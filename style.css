@@ -14,7 +14,7 @@ h1{
 	text-align: center;
 }
 .month .col-md-1:hover{
-	border: 1px solid #37FDFC;
+	font-weight: bold;
 }
 .monthselector{
 	padding-top: 2%;
@@ -25,7 +25,6 @@ h1{
 .weekselector{
 	padding-top: 2%;
 	padding-bottom: 2%;
-	display:none;
 }
 .weeks{
 	padding-top: 2%;
@@ -35,3 +34,6 @@ h1{
 	padding: 10px;
 	text-align: center;
 }
+.weeks .col-md-1:hover h4{
+	font-weight: bold;
+};
