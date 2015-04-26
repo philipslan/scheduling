@@ -2,7 +2,6 @@ $( document ).ready(function(){
   arraymon=[];
   makeMonths();
   selectMonths();
-  
 });
 
 // Data
@@ -26,7 +25,6 @@ function selectMonths(){
       $(this).css('background', '#37FDFC');
       arraymon.push(one);
       createWeek(one);
-      selectWeeks();
     }
   });
 }
@@ -96,8 +94,7 @@ function createWeekTemplate(month,weeks){
 }
 
 // Day Methods
-function selectWeeks(){
-  $(".week").click(function(){
+$(document).on("click",".week",function(){
     a = $(this).html();
     console.log(a);
     if ($(this).css('background-color') == "rgb(55, 253, 252)"){
@@ -111,27 +108,23 @@ function selectWeeks(){
       // arraymon.push(one);
     }
   });
-
-  $(".select-all").click(function(){
-    a= $(this).parent();
-    length= a[0].children.length;
-    selectall= a[0].children[length-1];
-    console.log(selectall);
-    if ($(selectall).css('background-color') == "rgb(55, 253, 252)"){
-      for (i=0; i< length; i++){
-        selected= a[0].children[i];
-        $(selected).css('background-color','white');
-      }
+$(document).on("click",".select-all",function(){
+  a= $(this).parent();
+  length= a[0].children.length;
+  selectall= a[0].children[length-1];
+  console.log(selectall);
+  if ($(selectall).css('background-color') == "rgb(55, 253, 252)"){
+    for (i=0; i< length; i++){
+      selected= a[0].children[i];
+      $(selected).css('background-color','white');
     }
-    else{
-      for(i=0; i<length; i++){
-        selected= a[0].children[i];
-        $(selected).css('background', '#37FDFC');
-      }
+  }
+  else{
+    for(i=0; i<length; i++){
+      selected= a[0].children[i];
+      $(selected).css('background', '#37FDFC');
     }
-    console.log($(this).css('background-color'));
-    $(this).off();
-
-  });
-}
+  }
+  console.log($(this).css('background-color'));
+});
 
