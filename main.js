@@ -2,6 +2,7 @@ $( document ).ready(function(){
   arraymon=[];
   makeMonths();
   selectMonths();
+  
 });
 
 // Data
@@ -13,7 +14,6 @@ var date = new Date();
 // Month Methods
 function selectMonths(){
   $(".mon").click(function(){
-
     a= $(this).html();
     one= new Date(date.getFullYear(), getMonthIndex(a),1);
     if ($(this).css('background-color') == "rgb(55, 253, 252)"){
@@ -26,6 +26,7 @@ function selectMonths(){
       $(this).css('background', '#37FDFC');
       arraymon.push(one);
       createWeek(one);
+      selectWeeks();
     }
   });
 }
@@ -89,9 +90,48 @@ function createWeekTemplate(month,weeks){
   $(".weektemplate").append("<div id='"+month+"' ><div class='row'><h3>"+month+"</h3></div><div class='row weeks'></div></div>");
   template= ".weektemplate #"+month+" .weeks";
   for(i=0; i<weeks.length; i++){
-    $(template).append("<div class='col-md-1'><h4 class='week1'>"+weeks[i][0]+"</h4><h4 class='week2'>"+weeks[i][1]+"</h4></div>");
+    $(template).append("<div class='week col-md-1 "+month+"'><h4 class='week1'>"+weeks[i][0]+"</h4><h4 class='week2'>"+weeks[i][1]+"</h4></div>");
   }
-  $(template).append("<div class='col-md-1 select-all'><h4>Select</h4><h4>All</h4></div>");
+  $(template).append("<div class='col-md-1 select-all "+month+"'><h4>Select</h4><h4>All</h4></div>");
 }
 
+// Day Methods
+function selectWeeks(){
+  $(".week").click(function(){
+    a = $(this).html();
+    console.log(a);
+    if ($(this).css('background-color') == "rgb(55, 253, 252)"){
+      $(this).css('background-color','white');
+      // removeMonth(one.getMonth()); 
+      // remove= fullMonth[one.getMonth()];
+      // $("#"+remove).remove();
+    }
+    else{
+      $(this).css('background', '#37FDFC');
+      // arraymon.push(one);
+    }
+  });
+
+  $(".select-all").click(function(){
+    a= $(this).parent();
+    length= a[0].children.length;
+    selectall= a[0].children[length-1];
+    console.log(selectall);
+    if ($(selectall).css('background-color') == "rgb(55, 253, 252)"){
+      for (i=0; i< length; i++){
+        selected= a[0].children[i];
+        $(selected).css('background-color','white');
+      }
+    }
+    else{
+      for(i=0; i<length; i++){
+        selected= a[0].children[i];
+        $(selected).css('background', '#37FDFC');
+      }
+    }
+    console.log($(this).css('background-color'));
+    $(this).off();
+
+  });
+}
 
