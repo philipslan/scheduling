@@ -36,4 +36,12 @@ h1{
 }
 .weeks .col-md-1:hover h4{
 	font-weight: bold;
-};
+}
+
+.dayselector{
+	display: none;
+}
+
+.btn-group{
+	padding-bottom: 2%;
+}

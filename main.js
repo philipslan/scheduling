@@ -9,6 +9,7 @@ var month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov",
 var fullMonth = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 var day = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
 var date = new Date();
+arrayweek=[];
 
 // Month Methods
 function selectMonths(){
@@ -68,8 +69,8 @@ function createWeek(firstday){
     week= firstday;
     week1 = new Date(firstday.getFullYear(), firstday.getMonth(), week.getDate()+6);
   }
-  date1= ""+(a+1)+"/"+week.getDate();
-  date2= ""+(a+1)+"/"+week1.getDate();
+  date1= (a+1)+"/"+week.getDate();
+  date2= (a+1)+"/"+week1.getDate();
   weeks.push([date1,date2]);
   do {
     week= new Date(week.getFullYear(), week.getMonth(),week.getDate()+7);
@@ -95,8 +96,6 @@ function createWeekTemplate(month,weeks){
 
 // Day Methods
 $(document).on("click",".week",function(){
-    a = $(this).html();
-    console.log(a);
     if ($(this).css('background-color') == "rgb(55, 253, 252)"){
       $(this).css('background-color','white');
       // removeMonth(one.getMonth()); 
@@ -105,14 +104,19 @@ $(document).on("click",".week",function(){
     }
     else{
       $(this).css('background', '#37FDFC');
-      // arraymon.push(one);
+      week1= $(this).find(".week1").html();
+      week2= $(this).find(".week2").html();
+      week1= week1.split("/");
+      week2= week2.split("/");
+      arrayweek.push([week1,week2]);
     }
   });
+
 $(document).on("click",".select-all",function(){
   a= $(this).parent();
   length= a[0].children.length;
   selectall= a[0].children[length-1];
-  console.log(selectall);
+  console.log(a);
   if ($(selectall).css('background-color') == "rgb(55, 253, 252)"){
     for (i=0; i< length; i++){
       selected= a[0].children[i];
@@ -127,4 +131,6 @@ $(document).on("click",".select-all",function(){
   }
   console.log($(this).css('background-color'));
 });
+
+// 
 
