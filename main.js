@@ -10,6 +10,17 @@ var fullMonth = ["January","February","March","April","May","June","July","Augus
 var day = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
 var date = new Date();
 arrayweek=[];
+rankmonth=[];
+currentmonth= date.getMonth()+1;
+for (i=0; i<12; i++){
+  rankmonth.push(currentmonth);
+  if (currentmonth<12){
+    currentmonth++;
+  }
+  else{
+    currentmonth= 13-currentmonth;
+  }
+}
 
 // Month Methods
 function selectMonths(){
@@ -106,9 +117,19 @@ $(document).on("click",".week",function(){
       $(this).css('background', '#37FDFC');
       week1= $(this).find(".week1").html();
       week2= $(this).find(".week2").html();
+
       week1= week1.split("/");
+      week1= week1.map(function(x){
+        return parseInt(x,10); 
+      });
+      
       week2= week2.split("/");
-      arrayweek.push([week1,week2]);
+      week2= week2.map(function(x){
+        return parseInt(x,10);
+      });
+      result= [week1,week2];
+      pushweek(result);
+      console.log(arrayweek);
     }
   });
 
@@ -132,5 +153,38 @@ $(document).on("click",".select-all",function(){
   console.log($(this).css('background-color'));
 });
 
-// 
+function pushweek(result){
+  if (arrayweek.length==0){
+    arrayweek.push(result);
+  }
+  else{
+    end= false;
+    for(i=0; i<arrayweek.length; i++){
+      first= rankmonth.indexOf(arrayweek[i][0][0]);
+      second= rankmonth.indexOf(result[0][0]);
+      if(first<second){
+        console.log("pass");
+      }
+      else if(first==second){
+        if(arrayweek[i][0][1]<result[0][1]){
+          console.log("pass");
+        }
+        else{
+          arrayweek.splice(i,0,result);
+          end= true;
+          break;
+        }
+      }
+      else{
+        arrayweek.splice(i,0,result);
+        end= true;
+        break;
+      }
+    }
+    if (!end){
+      arrayweek.push(result);
+    }
+  }
+}
+
 
