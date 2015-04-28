@@ -102,7 +102,7 @@ function createWeekTemplate(month,weeks){
   for(var i=0; i<weeks.length; i++){
     $(template).append("<div class='week col-md-1 "+month+"'><h4 class='week1'>"+weeks[i][0]+"</h4><h4 class='week2'>"+weeks[i][1]+"</h4></div>");
   }
-  $(template).append("<div class='col-md-1 select-all "+month+"'><h4>Select</h4><h4>All</h4></div>");
+  $(template).append("<div class='col-md-1 select-all "+month+"'><h4 class='select'>Select</h4><h4>All</h4></div>");
 }
 
 // Day Methods
@@ -131,8 +131,16 @@ $(document).on("click",".select-all",function(){
     for (var i=0; i< length; i++){
       var selected= a[0].children[i];
       $(selected).css('background-color','white');
-      console.log(selected);
+      if(i< length-1){
+        result= findWeeks(selected);
+        removeWeek(result);  
+      }
+      else{
+        $(selected).find(".select").html("Select");
+      }
     }
+    console.log("Dates");
+    for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
   }
   else{
     for(var k=0; k<length; k++){
@@ -153,12 +161,15 @@ $(document).on("click",".select-all",function(){
           } // end for
           if (!found){
             pushWeek(result);
-            console.log("Dates");
-            for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
           }
         } // end else
       } // end if k< length -1
+      else{
+        $(selected).find(".select").html("Remove");
+      }
     } // end for
+    console.log("Dates");
+    for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
   } // end else
 });
 
