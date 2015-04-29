@@ -91,3 +91,26 @@ function findWeeks(div){
   result= [week1,week2];
   return result;
 }
+
+function makeDays(){
+  $(".daytemplate").html("");
+  for(var i=0; i<arrayweek.length; i++){
+    var item= arrayweek[i];
+    dayTemplate(item[0],item[1]);
+  }
+}
+
+//Use IndexOf to find whether or not item is in days 
+//if item is in days color blue else don't color
+//You'll need to do the same for months
+function dayTemplate(item1, item2){
+  template= "weekof"+String(item1[0])+String(item1[1]);
+  console.log(template);
+  day1= String(item1[0])+"/"+String(item1[1]);
+  day2= String(item2[0])+"/"+String(item2[1]);
+  console.log(day1);
+  console.log(day2);
+  $(".daytemplate").append("<div class='"+template+"'></div>");
+  $("."+template).append("<div class='days row'><h3>Week of "+day1+" - "+day2+"</h3></div>");
+
+}

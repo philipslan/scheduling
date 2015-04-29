@@ -5,6 +5,7 @@ $( document ).ready(function(){
 });
 
 // Month Methods
+
 function selectMonths(){
   $(".mon").click(function(){
     var a= $(this).html();
@@ -83,12 +84,14 @@ $(document).on("click",".week",function(){
     removeWeek(result);
     console.log("Dates");
     for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
+    makeDays();
   } // Select
   else{
     $(this).css('background', '#37FDFC');
     pushWeek(result);
     console.log("Dates");
     for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
+    makeDays();
   }
 });
 // Click on select all
@@ -110,6 +113,7 @@ $(document).on("click",".select-all",function(){
     }
     console.log("Dates");
     for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
+    makeDays();
   }
   else{
     for(var k=0; k<length; k++){
@@ -139,6 +143,7 @@ $(document).on("click",".select-all",function(){
     } // end for
     console.log("Dates");
     for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
+    makeDays();  
   } // end else
 });
 
