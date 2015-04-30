@@ -102,6 +102,17 @@ function findWeeks(div){
   return result;
 }
 
+function createWeekTemplate(month,weeks){
+  $(".weektemplate").append("<div id='"+month+"' ><div class='row'><h3>"+month+"</h3></div><div class='row weeks'></div></div>");
+  var template= ".weektemplate #"+month+" .weeks";
+  for(var i=0; i<weeks.length; i++){
+    $(template).append("<div class='week col-md-1 "+month+"'><h4 class='week1'>"+weeks[i][0]+"</h4><h4 class='week2'>"+weeks[i][1]+"</h4></div>");
+  }
+  $(template).append("<div class='col-md-1 select-all "+month+"'><h4 class='select'>Select</h4><h4>All</h4></div>");
+}
+
+// Day Functions
+
 function makeDays(){
   $(".daytemplate").html("");
   for(var i=0; i<arrayweek.length; i++){
@@ -115,6 +126,19 @@ function dayTemplate(item1, item2){
   var day1= String(item1[0])+"/"+String(item1[1]);
   var day2= String(item2[0])+"/"+String(item2[1]);
   $(".daytemplate").append("<div class='"+template+"'></div>");
-  $("."+template).append("<div class='row'><h3>Week of "+day1+" - "+day2+"</h3></div>");
+  $("." + template).append("<div class='row'><h3>Week of "+day1+" - "+day2+"</h3></div><div class='row days'></div>");
 
+  if (date.getMonth() > item1[0]){
+    var date1= new Date(date.getFullYear()+1,item1[0]-1,item1[1]);
+  } else{
+    var date1= new Date(date.getFullYear(),item1[0]-1,item1[1]);
+  }
+
+  template= "." + template + " .days"
+  for(var i=0; i<7; i++){
+    $(template).append("<div class='col-md-1 '"+ i + "><h4>" + day[date1.getDay()] + "</h4><h4>"+(date1.getMonth()+1)+"/"+date1.getDate() +"</h4></div>");
+    date1= new Date(date1.getFullYear(),date1.getMonth(),date1.getDate()+1);
+  }
+  // $(template).append("<div class='col-md-1 select-all'><h4 class='select'>Select</h4><h4>All</h4></div>");
+  // Make the days into date objects and then translate back, because there will be problems with overflow
 }

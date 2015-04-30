@@ -66,15 +66,6 @@ function createWeek(firstday){
   createWeekTemplate(fullMonth[a],weeks);
 }
 
-function createWeekTemplate(month,weeks){
-  $(".weektemplate").append("<div id='"+month+"' ><div class='row'><h3>"+month+"</h3></div><div class='row weeks'></div></div>");
-  var template= ".weektemplate #"+month+" .weeks";
-  for(var i=0; i<weeks.length; i++){
-    $(template).append("<div class='week col-md-1 "+month+"'><h4 class='week1'>"+weeks[i][0]+"</h4><h4 class='week2'>"+weeks[i][1]+"</h4></div>");
-  }
-  $(template).append("<div class='col-md-1 select-all "+month+"'><h4 class='select'>Select</h4><h4>All</h4></div>");
-}
-
 // Click on Week
 $(document).on("click",".week",function(){
   var result= findWeeks($(this));
