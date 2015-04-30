@@ -6,6 +6,7 @@ var date = new Date();
 var arrayweek=[];
 var rankmonth=[];
 var currentmonth= date.getMonth()+1;
+
 for (i=0; i<12; i++){
   rankmonth.push(currentmonth);
   if (currentmonth<12){
@@ -17,12 +18,21 @@ for (i=0; i<12; i++){
 }
 
 // Month Functions
-function removeMonth(index){
+function removeMonth(month){
   for (var i=0; i<arraymon.length; i++){
-    if (arraymon[i].getMonth()==index){
+    if (arraymon[i].getMonth()==month){
       arraymon.splice(i,1);
     }
   }
+  month ++;
+  var dummy=[]
+  for (var i=0; i<arrayweek.length; i++){
+    if(arrayweek[i][0][0]!=month){
+     dummy.push(arrayweek[i]); 
+    }
+  }
+  arrayweek= dummy
+  makeDays();
 }
 
 function getMonthIndex(fmonth){
@@ -39,7 +49,7 @@ function pushWeek(result){
     arrayweek.push(result);
   }
   else{
-    end= false;
+    var end= false;
     for(i=0; i<arrayweek.length; i++){
       first= rankmonth.indexOf(arrayweek[i][0][0]);
       second= rankmonth.indexOf(result[0][0]);
@@ -65,7 +75,7 @@ function pushWeek(result){
 }
 
 function removeWeek(result){
-  a=result[0];
+  var a=result[0];
   for (i=0; i<arrayweek.length; i++){
     if(a[0]==arrayweek[i][0][0]){
       if(a[1]==arrayweek[i][0][1]){
@@ -76,8 +86,8 @@ function removeWeek(result){
 }
 
 function findWeeks(div){
-  week1= $(div).find(".week1").html();
-  week2= $(div).find(".week2").html();
+  var week1= $(div).find(".week1").html();
+  var week2= $(div).find(".week2").html();
 
   week1= week1.split("/");
   week1= week1.map(function(x){
@@ -88,7 +98,7 @@ function findWeeks(div){
   week2= week2.map(function(x){
     return parseInt(x,10);
   });
-  result= [week1,week2];
+  var result= [week1,week2];
   return result;
 }
 
@@ -100,17 +110,11 @@ function makeDays(){
   }
 }
 
-//Use IndexOf to find whether or not item is in days 
-//if item is in days color blue else don't color
-//You'll need to do the same for months
 function dayTemplate(item1, item2){
-  template= "weekof"+String(item1[0])+String(item1[1]);
-  console.log(template);
-  day1= String(item1[0])+"/"+String(item1[1]);
-  day2= String(item2[0])+"/"+String(item2[1]);
-  console.log(day1);
-  console.log(day2);
+  var template= "weekof"+String(item1[0])+String(item1[1]);  
+  var day1= String(item1[0])+"/"+String(item1[1]);
+  var day2= String(item2[0])+"/"+String(item2[1]);
   $(".daytemplate").append("<div class='"+template+"'></div>");
-  $("."+template).append("<div class='days row'><h3>Week of "+day1+" - "+day2+"</h3></div>");
+  $("."+template).append("<div class='row'><h3>Week of "+day1+" - "+day2+"</h3></div>");
 
 }

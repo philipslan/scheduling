@@ -82,15 +82,11 @@ $(document).on("click",".week",function(){
   if ($(this).css('background-color') == "rgb(55, 253, 252)"){
     $(this).css('background-color','white');
     removeWeek(result);
-    console.log("Dates");
-    for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
     makeDays();
   } // Select
   else{
     $(this).css('background', '#37FDFC');
     pushWeek(result);
-    console.log("Dates");
-    for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
     makeDays();
   }
 });
@@ -111,8 +107,6 @@ $(document).on("click",".select-all",function(){
         $(selected).find(".select").html("Select");
       }
     }
-    console.log("Dates");
-    for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
     makeDays();
   }
   else{
@@ -141,8 +135,6 @@ $(document).on("click",".select-all",function(){
         $(selected).find(".select").html("Remove");
       }
     } // end for
-    console.log("Dates");
-    for (var i=0; i<arrayweek.length; i++){ console.log(arrayweek[i][0]);} // prints each date
     makeDays();  
   } // end else
 });
