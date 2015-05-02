@@ -82,7 +82,7 @@ $(document).on("click",".week",function(){
   }
 });
 // Click on select all
-$(document).on("click",".select-all",function(){
+$(document).on("click",".weekselector .select-all",function(){
   var a= $(this).parent();
   var length= a[0].children.length;
   var selectall= a[0].children[length-1];

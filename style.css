@@ -39,6 +39,13 @@ h1{
 }
 
 /* Days */
+.dayselector .nameMonth{
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+.dayselector h2{
+	padding-bottom: 1%;
+}
 .dayselector{
 	padding-top: 2%;
 	padding-bottom: 2%;
