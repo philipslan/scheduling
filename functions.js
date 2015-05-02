@@ -4,6 +4,7 @@ var fullMonth = ["January","February","March","April","May","June","July","Augus
 var day = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
 var date = new Date();
 var arrayweek=[];
+var arrayday=[];
 var rankmonth=[];
 var currentmonth= date.getMonth()+1;
 
@@ -103,7 +104,7 @@ function findWeeks(div){
 }
 
 function createWeekTemplate(month,weeks){
-  $(".weektemplate").append("<div id='"+month+"' ><div class='row'><h3>"+month+"</h3></div><div class='row weeks'></div></div>");
+  $(".weektemplate").append("<div id='"+month+"' ><div class='row'><h2>"+month+"</h2></div><div class='row weeks'></div></div>");
   var template= ".weektemplate #"+month+" .weeks";
   for(var i=0; i<weeks.length; i++){
     $(template).append("<div class='week col-md-1 "+month+"'><h4 class='week1'>"+weeks[i][0]+"</h4><h4 class='week2'>"+weeks[i][1]+"</h4></div>");
@@ -143,7 +144,7 @@ function dayTemplate(item1, item2){
 
   template += " .days"
   for(var i=0; i<7; i++){
-    $(template).append("<div class='col-md-1 '"+ i + "><h4>" + day[date1.getDay()] + "</h4><h4>"+(date1.getMonth()+1)+"/"+date1.getDate() +"</h4></div>");
+    $(template).append("<div class='col-md-1 day'><h4>" + day[date1.getDay()] + "</h4><h4>"+(date1.getMonth()+1)+"/"+date1.getDate() +"</h4></div>");
     date1= new Date(date1.getFullYear(),date1.getMonth(),date1.getDate()+1);
   }
   $(template).append("<div class='col-md-1 select-all'><h4 class='select'>Select</h4><h4>All</h4></div>");

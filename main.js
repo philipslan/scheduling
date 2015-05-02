@@ -81,6 +81,7 @@ $(document).on("click",".week",function(){
     makeDays();
   }
 });
+
 // Click on select all
 $(document).on("click",".weekselector .select-all",function(){
   var a= $(this).parent();
@@ -127,6 +128,69 @@ $(document).on("click",".weekselector .select-all",function(){
       }
     } // end for
     makeDays();  
+  } // end else
+});
+
+// Click on Day
+$(document).on("click",".day",function(){
+  // Deselect
+  if ($(this).css('background-color') == "rgb(55, 253, 252)"){
+    $(this).css('background-color','white');
+    //removeWeek(result);
+    //makeDays();
+  } // Select
+  else{
+    $(this).css('background', '#37FDFC');
+    //pushWeek(result);
+    //makeDays();
+  }
+});
+
+// Click on select-all for days
+$(document).on("click",".dayselector .select-all",function(){
+  var a= $(this).parent();
+  var length= a[0].children.length;
+  var selectall= a[0].children[length-1];
+  if ($(selectall).css('background-color') == "rgb(55, 253, 252)"){
+    for (var i=0; i< length; i++){
+      var selected= a[0].children[i];
+      $(selected).css('background-color','white');
+      if(i< length-1){
+        //result= findWeeks(selected);
+        //removeWeek(result);  
+      }
+      else{
+        $(selected).find(".select").html("Select");
+      }
+    }
+    //makeDays();
+  }
+  else{
+    for(var k=0; k<length; k++){
+      var selected= a[0].children[k];
+      $(selected).css('background', '#37FDFC');
+      if(k< length -1){
+        //var result= findWeeks(selected);
+        if(arrayweek.length==0){
+          //pushWeek(result);
+        }
+        else{
+          found= false;
+          for(var j=0; j<arrayweek.length; j++){
+            // if( (result[0][0]==arrayweek[j][0][0]) && (result[0][1]==arrayweek[j][0][1]) ){
+            //   found= true;
+            //   break;
+            // } // end if
+          } // end for
+          if (!found){
+            //pushWeek(result);
+          }
+        } // end else
+      } // end if k< length -1
+      else{
+        $(selected).find(".select").html("Remove");
+      }
+    } // end for
   } // end else
 });
 
