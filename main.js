@@ -130,6 +130,10 @@ $(document).on("click",".weekselector .select-all",function(){
     makeDays();  
   } // end else
 });
+//////////////////////////////////////////
+//////////////////////////////////////////
+
+// Day Methods
 
 // Click on Day
 $(document).on("click",".day",function(){
@@ -141,12 +145,12 @@ $(document).on("click",".day",function(){
   } // Select
   else{
     $(this).css('background', '#37FDFC');
-    //pushWeek(result);
+    pushDay($(this));
     //makeDays();
   }
 });
 
-// Click on select-all for days
+// Click on select all
 $(document).on("click",".dayselector .select-all",function(){
   var a= $(this).parent();
   var length= a[0].children.length;
