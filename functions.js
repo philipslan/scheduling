@@ -46,7 +46,7 @@ function getMonthIndex(fmonth){
 
 // Week Functions
 function pushWeek(result){
-  if (arrayweek.length==0){
+  if (arrayweek.length == 0){
     arrayweek.push(result);
   }
   else{
@@ -202,6 +202,9 @@ function addDay(result){
             var day2 = day.indexOf(arrayday[i][j][2]);
             if (day1 < day2){
               arrayday[i].splice(j,0,result);
+              return;
+            }
+            if (day1 == day2){
               return;
             }
           }

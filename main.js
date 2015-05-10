@@ -141,7 +141,6 @@ $(document).on("click",".day",function(){
   if ($(this).css('background-color') == "rgb(55, 253, 252)"){
     $(this).css('background-color','white');
     var date1= makeDay($(this));
-    console.log(date1);
     removeDay(date1);
   } // Select
   else{
@@ -156,42 +155,28 @@ $(document).on("click",".dayselector .select-all",function(){
   var a= $(this).parent();
   var length= a[0].children.length;
   var selectall= a[0].children[length-1];
+  ////////////////////////////////////////////////////////////////
   if ($(selectall).css('background-color') == "rgb(55, 253, 252)"){
     for (var i=0; i< length; i++){
       var selected= a[0].children[i];
       $(selected).css('background-color','white');
       if(i< length-1){
-        //result= findWeeks(selected);
-        //removeWeek(result);  
+        var date1= makeDay($(selected));
+        removeDay(date1);  
       }
       else{
         $(selected).find(".select").html("Select");
       }
     }
-    //makeDays();
   }
   else{
     for(var k=0; k<length; k++){
       var selected= a[0].children[k];
       $(selected).css('background', '#37FDFC');
-      if(k< length -1){
-        //var result= findWeeks(selected);
-        if(arrayweek.length==0){
-          //pushWeek(result);
-        }
-        else{
-          found= false;
-          for(var j=0; j<arrayweek.length; j++){
-            // if( (result[0][0]==arrayweek[j][0][0]) && (result[0][1]==arrayweek[j][0][1]) ){
-            //   found= true;
-            //   break;
-            // } // end if
-          } // end for
-          if (!found){
-            //pushWeek(result);
-          }
-        } // end else
-      } // end if k< length -1
+      if(k < length-1){
+        var date1= makeDay($(selected));
+        addDay(date1);
+      }
       else{
         $(selected).find(".select").html("Remove");
       }
