@@ -2,6 +2,16 @@ $( document ).ready(function(){
   arraymon=[];
   makeMonths();
   selectMonths();
+  $(window).scroll(function () {
+  // set distance user needs to scroll before we start fadeIn
+    if ($(this).scrollTop() > ($(window).height()*.3)) {
+      $('.selecteddays').css("bottom","45%");
+    }
+    else{
+      $('.selecteddays').css("bottom","6%"); 
+    }
+  });
+  $('.selecteddays').hide();
 });
 
 // Month Methods
@@ -168,5 +178,20 @@ $(document).on("click",".dayselector .select-all",function(){
       }
     } // end for
   } // end else
+});
+
+$(document).on("click",".days",function(){
+  $('.selecteddays').fadeIn();
+  $('.selecteddays .days').html("");
+  for( var i=0; i<arrayday.length; i++){
+    for ( var j=0; j<arrayday[i].length - 1; j++){
+      var selectedday = arrayday[i][j][1];
+      selectedday = String(selectedday[0]) + "/" + String(selectedday[1]) + "\t,\t";
+      $('.selecteddays .days').append(selectedday);
+    }
+    var selectedday = arrayday[i][arrayday[i].length - 1][1];
+    selectedday = String(selectedday[0]) + "/" + String(selectedday[1]) + "</br>";
+    $('.selecteddays .days').append(selectedday);
+  }
 });
 
