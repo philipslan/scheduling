@@ -46,32 +46,28 @@ function getMonthIndex(fmonth){
 
 // Week Functions
 function pushWeek(result){
-  if (arrayweek.length == 0){
+  if (!arrayweek.length){
     arrayweek.push(result);
   }
   else{
-    var end= false;
+    var result_month= rankmonth.indexOf(result[0][0]);
     for (var i=0; i<arrayweek.length; i++){
-      var first= rankmonth.indexOf(arrayweek[i][0][0]);
-      var second= rankmonth.indexOf(result[0][0]);
-      if(first<second){}
-      else if(first==second){
-        if(arrayweek[i][0][1]<result[0][1]){}
-        else{
+      var variable_month= rankmonth.indexOf(arrayweek[i][0][0]);
+      if (variable_month > result_month){
+        arrayweek.splice(i,0,result);
+        return;
+      }
+      else if (variable_month == result_month){
+        if (arrayweek[i][0][1] > result[0][1]){
           arrayweek.splice(i,0,result);
-          end= true;
-          break;
+          return;
+        }
+        else if (arrayweek[i][0][1] == result[0][1]){
+          return;
         }
       }
-      else{
-        arrayweek.splice(i,0,result);
-        end= true;
-        break;
-      }
     }
-    if (!end){
-      arrayweek.push(result);
-    }
+    arrayweek.push(result);
   }
 }
 
@@ -149,6 +145,23 @@ function dayTemplate(item1, item2){
   }
   $(template).append("<div class='col-md-1 select-all'><h4 class='select'>Select</h4><h4>All</h4></div>");
   // Make the days into date objects and then translate back, because there will be problems with overflow
+  var a= $(template);
+  var length= a[0].children.length;
+  for(var k=0; k<length-1; k++){
+    var selected= a[0].children[k];  
+    var date1= makeDay($(selected));
+    for (var i = 0; i < arrayday.length; i++){
+      for (var j =0; j < arrayday[i].length; j++){
+        if ( date1.equals(arrayday[i][j])){
+          $(selected).css('background', '#37FDFC');    
+          if ( arrayday[i].length == 7){
+            $(a[0].children[length-1]).css('background', '#37FDFC');
+            $(a[0].children[length-1]).find(".select").html("Remove");
+          }  
+        }
+      }
+    }
+  } // end for
 }
 
 function makeDay(div){
@@ -174,7 +187,6 @@ function makeDay(div){
 }
 
 function addDay(result){
-  var found = false;
   if (!arrayday.length){
     arrayday.push([result]);
     return;
@@ -216,9 +228,7 @@ function addDay(result){
       }
     }
   }
-  if(!found){
-    arrayday.push([result]);
-  }
+  arrayday.push([result]);
 }
 
 function removeDay(div){
@@ -231,6 +241,10 @@ function removeDay(div){
         var month2_b = arrayday[i][j][1];
         if (month2_a.equals(month2_b)){
           arrayday[i].splice(j,1);
+          if (!arrayday[i].length){
+            arrayday.splice(i,1);
+          }
+          return;
         }
       }      
     }

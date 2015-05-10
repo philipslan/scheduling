@@ -107,22 +107,8 @@ $(document).on("click",".weekselector .select-all",function(){
       $(selected).css('background', '#37FDFC');
       if(k< length -1){
         var result= findWeeks(selected);
-        if(arrayweek.length==0){
-          pushWeek(result);
-        }
-        else{
-          found= false;
-          for(var j=0; j<arrayweek.length; j++){
-            if( (result[0][0]==arrayweek[j][0][0]) && (result[0][1]==arrayweek[j][0][1]) ){
-              found= true;
-              break;
-            } // end if
-          } // end for
-          if (!found){
-            pushWeek(result);
-          }
-        } // end else
-      } // end if k< length -1
+        pushWeek(result);
+      }
       else{
         $(selected).find(".select").html("Remove");
       }
