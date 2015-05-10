@@ -7,7 +7,7 @@ html, body{
 	margin: 0 auto;
 }
 
-h1{
+.main h1{
 	text-align: center;
 	padding-top: 2%;
 }
@@ -59,15 +59,15 @@ h1{
 	padding-top: 2%;
 	padding-bottom: 2%;
 }
-.days{
+.main .days{
 	padding-top: 2%;
 }
-.days .col-md-1{
+.main .days .col-md-1{
 	border: 1px solid black;
 	padding: 10px;
 	text-align: center;
 }
-.days .col-md-1:hover h4{
+.main .days .col-md-1:hover h4{
 	font-weight: bold;
 }
 
@@ -86,3 +86,48 @@ h1{
 	height: 50%;
 }
 
+/* Schedule */
+.schedule .col-md-1{
+	border: 1px solid gray;
+	padding: 2px;
+	text-align: center;
+	width: 14%;
+}
+.schedule .title button{
+	margin-top: 2%;
+	margin-left: 1%;
+}
+.schedule .title h1{
+	text-align: center;
+
+}
+
+.schedule .col-md-1:hover p{
+	font-weight: bold;
+}
+
+.schedule .title{
+	padding-bottom: 2%;
+}
+
+.schedule .days{
+	margin: 2%;
+}
+
+.schedule .selected{
+	border: 1px solid black;
+	background: #D2FFFF;
+	height: 75%;
+	overflow: auto;
+}
+
+.schedule .picker{
+	border: 1px solid black;
+	height: 75%;
+}
+
+.schedule .results{
+	background: #D2FFFF;
+	border: 1px solid black;
+	height: 75%;
+}

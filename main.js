@@ -18,7 +18,7 @@ $( document ).ready(function(){
 // Month Methods
 
 function selectMonths(){
-  $(".mon").click(function(){
+  $(".main .mon").click(function(){
     var a= $(this).html();
     var one= new Date(date.getFullYear(), getMonthIndex(a),1);
     if ($(this).css('background-color') == "rgb(55, 253, 252)"){
@@ -78,7 +78,7 @@ function createWeek(firstday){
 }
 
 // Click on Week
-$(document).on("click",".week",function(){
+$(document).on("click",".main .week",function(){
   var result= findWeeks($(this));
   // Deselect
   if ($(this).css('background-color') == "rgb(55, 253, 252)"){
@@ -94,7 +94,7 @@ $(document).on("click",".week",function(){
 });
 
 // Click on select all
-$(document).on("click",".weekselector .select-all",function(){
+$(document).on("click",".main .weekselector .select-all",function(){
   var a= $(this).parent();
   var length= a[0].children.length;
   var selectall= a[0].children[length-1];
@@ -133,7 +133,7 @@ $(document).on("click",".weekselector .select-all",function(){
 // Day Methods
 
 // Click on Day
-$(document).on("click",".day",function(){
+$(document).on("click",".main .day",function(){
   // Deselect
   if ($(this).css('background-color') == "rgb(55, 253, 252)"){
     $(this).css('background-color','white');
@@ -148,7 +148,7 @@ $(document).on("click",".day",function(){
 });
 
 // Click on select all
-$(document).on("click",".dayselector .select-all",function(){
+$(document).on("click",".main .dayselector .select-all",function(){
   var a= $(this).parent();
   var length= a[0].children.length;
   var selectall= a[0].children[length-1];
@@ -181,7 +181,7 @@ $(document).on("click",".dayselector .select-all",function(){
   } // end else
 });
 
-$(document).on("click",".days",function(){
+$(document).on("click",".main .days",function(){
   $('.selecteddays').fadeIn();
   $('.selecteddays .days').html("");
   for( var i=0; i<arrayday.length; i++){
@@ -200,14 +200,32 @@ $(document).on("click",".days",function(){
 //////////////////////////////////////////
 //////////////////////////////////////////
 // Schedule Methods
-$(document).on("click","button",function(){
+$(document).on("click",".main button",function(){
   if (!arrayday.length){
     alert("Please select some days");
   }
   else{
-    $('.schedule').append("<h1>Hello World</h1>");
+    $('.schedule').html("<div class='row title'><button type='button' class='btn btn-default btn-info back'>Back</button><h1>Selecting Times</h1></div>");
+    $('.schedule').append("<div class='col-md-6 selected'><div class='days'></div></div><div class='col-md-3 picker'></div><div class='col-md-3 results'></div>");
     $('.main').fadeOut();
-    $('.schedule').fadeIn();  
+    $('.schedule').fadeIn();
+    for (var i = 0; i < arrayday.length; i++){
+      $('.schedule .selected .days').append("<div class='row " + i + "'></div>");
+      var template = ".schedule .selected .days ." + String(i);
+      for (var j =0; j< arrayday[i].length; j++){
+        var date1 = arrayday[i][j][1];
+        date1 = String(date1[0]) + "/" + String(date1[1]);
+        var day1 = arrayday[i][j][2];
+        var div = "<div class='col-md-1 day'><p>" + day1 + "</p><p>" + date1 + "</p></div>";
+        $(template).append(div);
+      }
+    }
   }
+
+});
+
+$(document).on("click",".schedule .back", function(){
+  $('.schedule').fadeOut();
+  $('.main').fadeIn();
 });
 

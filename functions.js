@@ -8,6 +8,7 @@ var arrayday=[];
 var rankmonth=[];
 var currentmonth= date.getMonth()+1;
 
+
 for (var i=0; i<12; i++){
   rankmonth.push(currentmonth);
   if (currentmonth<12){
