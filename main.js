@@ -12,6 +12,7 @@ $( document ).ready(function(){
     }
   });
   $('.selecteddays').hide();
+  $('.schedule').hide();
 });
 
 // Month Methods
@@ -45,8 +46,8 @@ function makeMonths(){
     j++;
   } while(i != monthNum)  
 }
-
-
+//////////////////////////////////////////
+//////////////////////////////////////////
 
 // Week Method
 function createWeek(firstday){
@@ -192,6 +193,21 @@ $(document).on("click",".days",function(){
     var selectedday = arrayday[i][arrayday[i].length - 1][1];
     selectedday = String(selectedday[0]) + "/" + String(selectedday[1]) + "</br>";
     $('.selecteddays .days').append(selectedday);
+  }
+});
+
+
+//////////////////////////////////////////
+//////////////////////////////////////////
+// Schedule Methods
+$(document).on("click","button",function(){
+  if (!arrayday.length){
+    alert("Please select some days");
+  }
+  else{
+    $('.schedule').append("<h1>Hello World</h1>");
+    $('.main').fadeOut();
+    $('.schedule').fadeIn();  
   }
 });
 
