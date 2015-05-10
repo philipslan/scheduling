@@ -130,9 +130,9 @@ function dayTemplate(item1, item2){
   }
   var template= ".daytemplate ." + String(item1[0]);
 
-  temp = "weekof" + String(item1[0]) + String(item1[1]);  
+  temp = "weekof_" + String(item1[0]) + "_" + String(item1[1]);  
   $(template).append("<div class='" + temp + "'></div>");
-  template += " .weekof" + String(item1[0]) + String(item1[1]);
+  template += " .weekof_" + String(item1[0]) + "_" + String(item1[1]);
 
   $(template).append("<div class='row'><h3>Week of " + day1 + " - " + day2 + "</h3></div><div class='row days'></div>");
 
@@ -157,10 +157,7 @@ function makeDay(div){
   week = week.split("weekof");
   week = week[1].split("_"); 
   // Gets the month value and the day values. Accounts for two digit day values.
-  var temp =  week[0].substring(0,1);
-  var temp1 =  week[0].substring(1);
-  week[0] = temp;
-  week[1] = temp1;
+  week.splice(0,1);
   // returns int objects for week values
   week = week.map(function(x){
     return parseInt(x,10); 
@@ -220,3 +217,43 @@ function addDay(result){
     arrayday.push([result]);
   }
 }
+
+function removeDay(div){
+  var month1_a= div[0];
+  for(var i = 0; i < arrayday.length; i++){
+    var month1_b = arrayday[i][0][0];
+    if (month1_a.equals(month1_b)){
+      var month2_a = div[1];
+      for(var j=0; j< arrayday[i].length; j++){
+        var month2_b = arrayday[i][j][1];
+        if (month2_a.equals(month2_b)){
+          arrayday[i].splice(j,1);
+        }
+      }      
+    }
+  }
+}
+
+Array.prototype.equals = function (array) {
+  // if the other array is a falsy value, return
+  if (!array)
+    return false;
+
+  // compare lengths - can save a lot of time 
+  if (this.length != array.length)
+    return false;
+
+  for (var i = 0, l=this.length; i < l; i++) {
+    // Check if we have nested arrays
+    if (this[i] instanceof Array && array[i] instanceof Array) {
+      // recurse into the nested arrays
+      if (!this[i].equals(array[i]))
+        return false;       
+    }           
+    else if (this[i] != array[i]) { 
+      // Warning - two different object instances will never be equal: {x:20} != {x:20}
+      return false;   
+    }           
+  }       
+  return true;
+}  

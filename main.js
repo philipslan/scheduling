@@ -140,14 +140,14 @@ $(document).on("click",".day",function(){
   // Deselect
   if ($(this).css('background-color') == "rgb(55, 253, 252)"){
     $(this).css('background-color','white');
-    //removeWeek(result);
-    //makeDays();
+    var date1= makeDay($(this));
+    console.log(date1);
+    removeDay(date1);
   } // Select
   else{
     $(this).css('background', '#37FDFC');
-    var day= makeDay($(this));
-    addDay(day);
-    //makeDays();
+    var date1= makeDay($(this));
+    addDay(date1);
   }
 });
 
