@@ -145,7 +145,8 @@ $(document).on("click",".day",function(){
   } // Select
   else{
     $(this).css('background', '#37FDFC');
-    pushDay($(this));
+    var day= makeDay($(this));
+    addDay(day);
     //makeDays();
   }
 });

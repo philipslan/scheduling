@@ -8,7 +8,7 @@ var arrayday=[];
 var rankmonth=[];
 var currentmonth= date.getMonth()+1;
 
-for (i=0; i<12; i++){
+for (var i=0; i<12; i++){
   rankmonth.push(currentmonth);
   if (currentmonth<12){
     currentmonth++;
@@ -37,7 +37,7 @@ function removeMonth(month){
 }
 
 function getMonthIndex(fmonth){
-  for(var i=0; i<month.length; i++){
+  for (var i=0; i<month.length; i++){
     if (month[i]==fmonth){
       return i;
     }
@@ -51,7 +51,7 @@ function pushWeek(result){
   }
   else{
     var end= false;
-    for(i=0; i<arrayweek.length; i++){
+    for (var i=0; i<arrayweek.length; i++){
       var first= rankmonth.indexOf(arrayweek[i][0][0]);
       var second= rankmonth.indexOf(result[0][0]);
       if(first<second){}
@@ -77,7 +77,7 @@ function pushWeek(result){
 
 function removeWeek(result){
   var a=result[0];
-  for (i=0; i<arrayweek.length; i++){
+  for (var i=0; i<arrayweek.length; i++){
     if(a[0]==arrayweek[i][0][0]){
       if(a[1]==arrayweek[i][0][1]){
         arrayweek.splice(i,1);
@@ -106,7 +106,7 @@ function findWeeks(div){
 function createWeekTemplate(month,weeks){
   $(".weektemplate").append("<div id='"+month+"' ><div class='row'><h2>"+month+"</h2></div><div class='row weeks'></div></div>");
   var template= ".weektemplate #"+month+" .weeks";
-  for(var i=0; i<weeks.length; i++){
+  for (var i=0; i<weeks.length; i++){
     $(template).append("<div class='week col-md-1 "+month+"'><h4 class='week1'>"+weeks[i][0]+"</h4><h4 class='week2'>"+weeks[i][1]+"</h4></div>");
   }
   $(template).append("<div class='col-md-1 select-all "+month+"'><h4 class='select'>Select</h4><h4>All</h4></div>");
@@ -116,7 +116,7 @@ function createWeekTemplate(month,weeks){
 
 function makeDays(){
   $(".daytemplate").html("");
-  for(var i=0; i<arrayweek.length; i++){
+  for (var i=0; i<arrayweek.length; i++){
     var item= arrayweek[i];
     dayTemplate(item[0],item[1]);
   }
@@ -143,7 +143,7 @@ function dayTemplate(item1, item2){
   }
 
   template += " .days"
-  for(var i=0; i<7; i++){
+  for (var i=0; i<7; i++){
     $(template).append("<div class='col-md-1 day'><h4 class='weekday'>" + day[date1.getDay()] + "</h4><h4 class='actualday'>"+(date1.getMonth()+1)+"/"+date1.getDate() +"</h4></div>");
     date1= new Date(date1.getFullYear(),date1.getMonth(),date1.getDate()+1);
   }
@@ -151,7 +151,7 @@ function dayTemplate(item1, item2){
   // Make the days into date objects and then translate back, because there will be problems with overflow
 }
 
-function pushDay(div){
+function makeDay(div){
   var week = $(div).parent().parent().attr("class");
   // Getting week value from class name.
   week = week.split("weekof");
@@ -173,45 +173,50 @@ function pushDay(div){
   date = date.map(function(x){
     return parseInt(x,10); 
   });
-  result = [week, date, day];
-  //////////////////////////////////
-  //////////////////////////////////
-  if (arrayday.length==0){
-    arrayday.push([result]);
-  }
-  else{
-    var end= false;
-    for(i=0; i<arrayweek.length; i++){
-      var first= rankmonth.indexOf(arrayday[i][0][0]);
-      var second= rankmonth.indexOf(result[0][0]);
-      if (first < second){}
-      else if (first == second){
-        first = arrayday[i][0][1]
-        second = result[0][1]
-        if (arrayday[i][0][1] < result[0][1]){}
-        else if (first == second){
-          if (arrayday[i][1][1] > result[1][1]){}
-          else{
-            arrayday[i].pu
-          }
-        }
-        else{
-          if(arrayday[i][])
-          //arrayday.splice(i,0,result);
-          //end= true;
-          break;
-        }
-      }
-      else{
-        //arrayday.splice(i,0,result);
-        end= true;
-        break;
-      }
-    }
-    if (!end){
-      arrayday.push([result]);
-    }
-  }
+  return [week, date, day];
 }
 
-
+function addDay(result){
+  var found = false;
+  if (!arrayday.length){
+    arrayday.push([result]);
+    return;
+  }
+  else{
+    var month1 = rankmonth.indexOf(result[0][0]);
+    for (var i = 0; i < arrayday.length; i++){ 
+      var month2 = rankmonth.indexOf(arrayday[i][0][0][0]);
+      if (month2 > month1){
+        arrayday.splice(i,0,[result]);
+        return;
+      }
+      else if (month2 == month1){
+        for (var j=0; j<arrayday[i].length; j++){
+          var inside = false;
+          var monthday1= result[0][1];
+          var monthday2= arrayday[i][j][0][1];
+          if (monthday2 > monthday1){
+            arrayday.splice(i,0,[result]);
+            return;
+          }
+          else if (monthday2 == monthday1){
+            inside= true;
+            var day1 = day.indexOf(result[2]);
+            var day2 = day.indexOf(arrayday[i][j][2]);
+            if (day1 < day2){
+              arrayday[i].splice(j,0,result);
+              return;
+            }
+          }
+        }
+        if (inside){
+          arrayday[i].push(result);
+          return;
+        }
+      }
+    }
+  }
+  if(!found){
+    arrayday.push([result]);
+  }
+}
