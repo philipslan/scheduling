@@ -13,6 +13,7 @@ $( document ).ready(function(){
   });
   $('.selecteddays').hide();
   $('.schedule').hide();
+  
 });
 
 // Month Methods
@@ -206,9 +207,17 @@ $(document).on("click",".main button",function(){
   }
   else{
     $('.schedule').html("<div class='row title'><button type='button' class='btn btn-default btn-info back'>Back</button><h1>Selecting Times</h1></div>");
-    $('.schedule').append("<div class='col-md-6 selected'><div class='days'></div></div><div class='col-md-3 picker'></div><div class='col-md-3 results'></div>");
+    $('.schedule').append("<div class='col-md-6 selected'><div class='days'></div></div>");
+    $('.schedule').append("<div class='col-md-3 picker'></div>");
+    $('.schedule .picker').append("<div id='timepicker'><div class='row'></div></div>");
+    $('.schedule .picker #timepicker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>Start</label><input type='text' class='form-control start ui-timepicker-input'></div></div>");
+    $('.schedule .picker #timepicker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>End</label><input type='text' class='form-control end ui-timepicker-input'></div></div>");
+    $('.schedule .picker #timepicker').append("<hr/>");
+    $('.schedule').append("<div class='col-md-3 results'></div>");
     $('.main').fadeOut();
     $('.schedule').fadeIn();
+    $('#timepicker .start').timepicker({ 'scrollDefault': 'now', 'step': 15 });
+    $('#timepicker .end').timepicker({ 'scrollDefault': 'now', 'step': 15 });
     for (var i = 0; i < arrayday.length; i++){
       $('.schedule .selected .days').append("<div class='row " + i + "'></div>");
       var template = ".schedule .selected .days ." + String(i);
@@ -216,12 +225,11 @@ $(document).on("click",".main button",function(){
         var date1 = arrayday[i][j][1];
         date1 = String(date1[0]) + "/" + String(date1[1]);
         var day1 = arrayday[i][j][2];
-        var div = "<div class='col-md-1 day'><p>" + day1 + "</p><p>" + date1 + "</p></div>";
+        var div = "<div class='col-md-1 day'><h5>" + day1 + "</h5><h5>" + date1 + "</h5></div>";
         $(template).append(div);
       }
     }
   }
-
 });
 
 $(document).on("click",".schedule .back", function(){
@@ -229,3 +237,14 @@ $(document).on("click",".schedule .back", function(){
   $('.main').fadeIn();
 });
 
+// Methods for Selected
+$(document).on("click",".schedule ")
+
+// Methods for Picker
+$(document).on("change",".schedule #timepicker .start", function(){
+  var timestep = String($('#timepicker .start').val());
+  $('#timepicker .end').val(timestep);
+});
+
+// Methods for Results
+            
