@@ -212,8 +212,9 @@ $(document).on("click",".main button",function(){
     $('.schedule .picker').append("<div id='timepicker'><div class='row'></div></div>");
     $('.schedule .picker #timepicker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>Start</label><input type='text' class='form-control start ui-timepicker-input'></div></div>");
     $('.schedule .picker #timepicker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>End</label><input type='text' class='form-control end ui-timepicker-input'></div></div>");
-    $('.schedule .picker #timepicker').append("<hr/>");
-    $('.schedule').append("<div class='col-md-3 results'></div>");
+    $('.schedule .picker #timepicker').append("<br/><button type='button' class='btn btn-default btn-info'>Schedule</button>")
+    $('.schedule .picker #timepicker').append("<hr/><h4>Selected Days</h4>");
+    $('.schedule').append("<div class='col-md-3 results'><div class='container'><div class='row'><h3>Scheduled Times</h3></div></div></div>");
     $('.main').fadeOut();
     $('.schedule').fadeIn();
     $('#timepicker .start').timepicker({ 'scrollDefault': 'now', 'step': 15 });
