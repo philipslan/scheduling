@@ -206,19 +206,18 @@ $(document).on("click",".main button",function(){
     alert("Please select some days");
   }
   else{
-    $('.schedule').html("<div class='row title'><button type='button' class='btn btn-default btn-info back'>Back</button><h1>Selecting Times</h1></div>");
-    $('.schedule').append("<div class='col-md-6 selected'><div class='days'></div></div>");
-    $('.schedule').append("<div class='col-md-3 picker'></div>");
-    $('.schedule .picker').append("<div id='timepicker'><div class='row'></div></div>");
-    $('.schedule .picker #timepicker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>Start</label><input type='text' class='form-control start ui-timepicker-input'></div></div>");
-    $('.schedule .picker #timepicker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>End</label><input type='text' class='form-control end ui-timepicker-input'></div></div>");
-    $('.schedule .picker #timepicker').append("<br/><button type='button' class='btn btn-default btn-info'>Schedule</button>")
-    $('.schedule .picker #timepicker').append("<hr/><h4>Selected Days</h4>");
-    $('.schedule').append("<div class='col-md-3 results'><div class='container'><div class='row'><h3>Scheduled Times</h3></div></div></div>");
     $('.main').fadeOut();
+    $('.schedule').html("<div class='row title'><button type='button' class='btn btn-default btn-info back'>Back</button><h1>Selecting Times</h1></div>");
+    $('.schedule').append("<div class='col-md-6 selected'><h3>Select dates and schedule a time</h3><div class='days'></div></div>");
+    $('.schedule').append("<div class='col-md-3 picker'><div class='row'></div></div>");
+    $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>Start</label><input type='text' class='form-control start ui-timepicker-input'></div></div>");
+    $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>End</label><input type='text' class='form-control end ui-timepicker-input'></div></div>");
+    $('.schedule .picker').append("<br/><button type='button' class='btn btn-default btn-info'>Schedule</button>")
+    $('.schedule .picker').append("<hr/><h4>Selected Days</h4>");
+    $('.schedule').append("<div class='col-md-3 results'><div class='container'><div class='row'><h3>Scheduled Times</h3></div></div></div>");
     $('.schedule').fadeIn();
-    $('#timepicker .start').timepicker({ 'scrollDefault': 'now', 'step': 15 });
-    $('#timepicker .end').timepicker({ 'scrollDefault': 'now', 'step': 15 });
+    $('.picker .start').timepicker({ 'scrollDefault': 'now', 'step': 15 });
+    $('.picker .end').timepicker({ 'scrollDefault': 'now', 'step': 15 });
     for (var i = 0; i < arrayday.length; i++){
       $('.schedule .selected .days').append("<div class='row " + i + "'></div>");
       var template = ".schedule .selected .days ." + String(i);
@@ -229,6 +228,7 @@ $(document).on("click",".main button",function(){
         var div = "<div class='col-md-1 day'><h5>" + day1 + "</h5><h5>" + date1 + "</h5></div>";
         $(template).append(div);
       }
+      $(template).append("<div class='col-md-1 select-all'><h5>Select</h5><h5>All</h5></div>");
     }
   }
 });
@@ -239,13 +239,26 @@ $(document).on("click",".schedule .back", function(){
 });
 
 // Methods for Selected
-$(document).on("click",".schedule ")
+$(document).on("click",".schedule .selected .days .day", function(){
+  if ($(this).css('background-color') == "rgb(55, 253, 252)"){
+    $(this).css('background-color','white');
+    var selected = $(this).children().eq(1).html();
+    $(".picker h5").remove(":contains(" + selected + ")");
+  } // Select
+  else{
+    $(this).css('background', '#37FDFC');
+    var selected = $(this).children().eq(1).html();
+    var picker= $(".picker").html();
+    $(".schedule .picker").append("<h5>" + selected +"  </h5>");  
+  }
+});
 
 // Methods for Picker
-$(document).on("change",".schedule #timepicker .start", function(){
-  var timestep = String($('#timepicker .start').val());
-  $('#timepicker .end').val(timestep);
+$(document).on("change",".schedule .picker .start", function(){
+  var timestep = String($('.picker .start').val());
+  $('.picker .end').val(timestep);
 });
 
 // Methods for Results
+
             

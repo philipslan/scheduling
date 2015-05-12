@@ -3,10 +3,10 @@ var month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov",
 var fullMonth = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 var day = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
 var date = new Date();
-var arrayweek=[];
-var arrayday=[];
-var rankmonth=[];
-var currentmonth= date.getMonth()+1;
+var arrayweek =[];
+var arrayday =[];
+var rankmonth =[];
+var currentmonth = date.getMonth()+1;
 
 
 for (var i=0; i<12; i++){

@@ -91,7 +91,7 @@ html, body{
 	border: 1px solid gray;
 	padding: 2px;
 	text-align: center;
-	width: 14%;
+	width: 12.5%;
 }
 .schedule .title button{
 	margin-top: 2%;
@@ -101,7 +101,9 @@ html, body{
 	text-align: center;
 
 }
-
+.schedule .col-md-1{
+	background: white;
+}
 .schedule .col-md-1:hover h5{
 	font-weight: bold;
 }
@@ -127,8 +129,12 @@ html, body{
 	height: 75%;
 }
 
-.schedule .picker #timepicker{
-	margin-top: 5%;
+.schedule .picker .row{
+	margin-top: 7%;
+}
+
+.schedule .picker h5{
+	display: inline;
 }
 
 .schedule .results{
