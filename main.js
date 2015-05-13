@@ -228,7 +228,7 @@ $(document).on("click",".main button",function(){
         var div = "<div class='col-md-1 day'><h5>" + day1 + "</h5><h5>" + date1 + "</h5></div>";
         $(template).append(div);
       }
-      $(template).append("<div class='col-md-1 select-all'><h5>Select</h5><h5>All</h5></div>");
+      $(template).append("<div class='col-md-1 select-all'><h5 class='select'>Select</h5><h5>All</h5></div>");
     }
   }
 });
@@ -251,6 +251,42 @@ $(document).on("click",".schedule .selected .days .day", function(){
     var picker= $(".picker").html();
     $(".schedule .picker").append("<h5>" + selected +"  </h5>");  
   }
+});
+
+$(document).on("click",".schedule .selected .days .select-all",function(){
+  var a= $(this).parent();
+  var length= a[0].children.length;
+  var selectall= a[0].children[length-1];
+  if ($(selectall).css('background-color') == "rgb(55, 253, 252)"){
+    for (var i=0; i< length; i++){
+      var selected= a[0].children[i];
+      $(selected).css('background-color','white');
+      if(i< length-1){
+        selected = $(selected).contents();
+        selected = $(selected)[1];
+        selected = $(selected).html();
+        $(".picker h5").remove(":contains(" + selected + ")");
+      }
+      else{
+        $(selected).find(".select").html("Select");
+      }
+    }
+  }
+  else{
+    for(var k=0; k<length; k++){
+      var selected= a[0].children[k];
+      $(selected).css('background', '#37FDFC');
+      if(k< length -1){
+        selected = $(selected).contents();
+        selected = $(selected)[1];
+        selected = $(selected).html();
+        $(".schedule .picker").append("<h5>" + selected +"  </h5>");  
+      }
+      else{
+        $(selected).find(".select").html("Remove");
+      }
+    } // end for
+  } // end else
 });
 
 // Methods for Picker
