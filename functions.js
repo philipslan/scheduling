@@ -6,6 +6,7 @@ var date = new Date();
 var arrayweek =[];
 var arrayday =[];
 var rankmonth =[];
+var arrayselected = [];
 var currentmonth = date.getMonth()+1;
 
 
@@ -275,3 +276,41 @@ Array.prototype.equals = function (array) {
   }       
   return true;
 }  
+
+// Selection Functions
+
+// Function for appending a date to the selected time options
+function addSelect(div){
+  var selected = $(div).children();
+  var value = $(selected).eq(1).html();
+  value = value.split("/");
+  value = value.map(function(x){
+    return parseInt(x,10); 
+  });
+  // Insert into array
+  if (!arrayselected.length){
+    arrayselected.push(value);
+  }
+  else{
+    var value_month= rankmonth.indexOf(value[0]);
+    for (var i=0; i<arrayselected.length; i++){
+      var variable_month= rankmonth.indexOf(arrayselected[i][0]);
+      if (variable_month > value_month){
+        arrayselected.splice(i,0,value);
+        return;
+      }
+      else if (variable_month == value_month){
+        if (arrayselected[i][1] > value[1]){
+          arrayselected.splice(i,0,value);
+          return;
+        }
+        else if (arrayselected[i][1] == value[1]){
+          return;
+        }
+      }
+    }
+    arrayselected.push(value);
+  }
+}
+
+

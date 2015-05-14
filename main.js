@@ -213,7 +213,7 @@ $(document).on("click",".main button",function(){
     $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>Start</label><input type='text' class='form-control start ui-timepicker-input'></div></div>");
     $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>End</label><input type='text' class='form-control end ui-timepicker-input'></div></div>");
     $('.schedule .picker').append("<br/><button type='button' class='btn btn-default btn-info'>Schedule</button>")
-    $('.schedule .picker').append("<hr/><h4>Selected Days</h4>");
+    $('.schedule .picker').append("<hr/>");
     $('.schedule').append("<div class='col-md-3 results'><div class='container'><div class='row'><h3>Scheduled Times</h3></div></div></div>");
     $('.schedule').fadeIn();
     $('.picker .start').timepicker({ 'scrollDefault': 'now', 'step': 15 });
@@ -242,14 +242,11 @@ $(document).on("click",".schedule .back", function(){
 $(document).on("click",".schedule .selected .days .day", function(){
   if ($(this).css('background-color') == "rgb(55, 253, 252)"){
     $(this).css('background-color','white');
-    var selected = $(this).children().eq(1).html();
-    $(".picker h5").remove(":contains(" + selected + ")");
+    
   } // Select
   else{
     $(this).css('background', '#37FDFC');
-    var selected = $(this).children().eq(1).html();
-    var picker= $(".picker").html();
-    $(".schedule .picker").append("<h5>" + selected +"  </h5>");  
+    addSelect(this);
   }
 });
 
@@ -262,10 +259,7 @@ $(document).on("click",".schedule .selected .days .select-all",function(){
       var selected= a[0].children[i];
       $(selected).css('background-color','white');
       if(i< length-1){
-        selected = $(selected).contents();
-        selected = $(selected)[1];
-        selected = $(selected).html();
-        $(".picker h5").remove(":contains(" + selected + ")");
+        
       }
       else{
         $(selected).find(".select").html("Select");
@@ -277,10 +271,7 @@ $(document).on("click",".schedule .selected .days .select-all",function(){
       var selected= a[0].children[k];
       $(selected).css('background', '#37FDFC');
       if(k< length -1){
-        selected = $(selected).contents();
-        selected = $(selected)[1];
-        selected = $(selected).html();
-        $(".schedule .picker").append("<h5>" + selected +"  </h5>");  
+        addSelect(selected);
       }
       else{
         $(selected).find(".select").html("Remove");
