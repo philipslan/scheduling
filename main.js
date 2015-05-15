@@ -223,10 +223,21 @@ $(document).on("click",".main button",function(){
       var template = ".schedule .selected .days ." + String(i);
       for (var j =0; j< arrayday[i].length; j++){
         var date1 = arrayday[i][j][1];
+        var css = false;
+        if (arrayselected.length){
+          for (var k = 0; k < arrayselected.length; k++){
+            if (date1.equals(arrayselected[k])){
+              css = true;
+            }
+          }
+        }
         date1 = String(date1[0]) + "/" + String(date1[1]);
         var day1 = arrayday[i][j][2];
-        var div = "<div class='col-md-1 day'><h5>" + day1 + "</h5><h5>" + date1 + "</h5></div>";
+        var div = $("<div class='col-md-1 day'><h5>" + day1 + "</h5><h5>" + date1 + "</h5></div>");
         $(template).append(div);
+        if(css){
+          $(div).css('background', '#37FDFC');
+        }
       }
       $(template).append("<div class='col-md-1 select-all'><h5 class='select'>Select</h5><h5>All</h5></div>");
     }

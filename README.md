@@ -2,4 +2,4 @@
 
 ## Things to do
 
-- Create Schedule Page
+- Implement delete event creation
