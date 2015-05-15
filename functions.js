@@ -7,6 +7,7 @@ var arrayweek =[];
 var arrayday =[];
 var rankmonth =[];
 var arrayselected = [];
+var arraytimes= [];
 var currentmonth = date.getMonth()+1;
 
 
@@ -313,4 +314,60 @@ function addSelect(div){
   }
 }
 
+function removeSelect(div){
+  var selected = $(div).children();
+  var value = $(selected).eq(1).html();
+  value = value.split("/");
+  value = value.map(function(x){
+    return parseInt(x,10); 
+  });
+  for(var i = 0; i < arrayselected.length; i++){
+    var variable_month = arrayselected[i]
+    if (value.equals(variable_month)){
+      arrayselected.splice(i,1);
+    }
+  }
+}
 
+function addTime(result){
+  for(var i = 0; i < arrayselected.length; i++){
+    var selected = arrayselected[i];
+    if (!arraytimes.length){
+      arraytimes.push([selected,result]);
+    }
+    else{
+      var found = true;
+      safety:
+      for(var j=0; j < arraytimes.length; j++){
+        var cursor = arraytimes[j][0];
+        if (selected < cursor){
+          arraytimes.splice(j,0,[selected,result]);
+          found = false;
+          break safety;
+        }
+        else if (selected == cursor){
+          for(var k = 1; k < arraytimes[i].length; k++){
+            if (result[0][0] < arraytimes[j][k][0][0]){
+              arraytimes[j].splice(k,0,result);
+              found = false;
+              break safety;
+            }
+            else if (result[0][0] == arraytimes[j][k][0][0]){
+              if(result[0][1] < arraytimes[j][k][0][1]){
+                arraytimes[j].splice(k,0,result);
+                found = false;
+                break safety;
+              }
+            }
+          }
+          arraytimes[j].push(result);
+          found = false;
+          break safety;
+        }
+      }
+      if(found){
+        arraytimes.push([selected,result]);        
+      }
+    }
+  }
+}

@@ -212,7 +212,7 @@ $(document).on("click",".main button",function(){
     $('.schedule').append("<div class='col-md-3 picker'><div class='row'></div></div>");
     $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>Start</label><input type='text' class='form-control start ui-timepicker-input'></div></div>");
     $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>End</label><input type='text' class='form-control end ui-timepicker-input'></div></div>");
-    $('.schedule .picker').append("<br/><button type='button' class='btn btn-default btn-info'>Schedule</button>")
+    $('.schedule .picker').append("<br/><button type='button' id= 'schedule' class='btn btn-default btn-info'>Schedule</button>")
     $('.schedule .picker').append("<hr/>");
     $('.schedule').append("<div class='col-md-3 results'><div class='container'><div class='row'><h3>Scheduled Times</h3></div></div></div>");
     $('.schedule').fadeIn();
@@ -242,7 +242,7 @@ $(document).on("click",".schedule .back", function(){
 $(document).on("click",".schedule .selected .days .day", function(){
   if ($(this).css('background-color') == "rgb(55, 253, 252)"){
     $(this).css('background-color','white');
-    
+    removeSelect(this);
   } // Select
   else{
     $(this).css('background', '#37FDFC');
@@ -259,7 +259,7 @@ $(document).on("click",".schedule .selected .days .select-all",function(){
       var selected= a[0].children[i];
       $(selected).css('background-color','white');
       if(i< length-1){
-        
+        removeSelect(selected);
       }
       else{
         $(selected).find(".select").html("Select");
@@ -287,5 +287,15 @@ $(document).on("change",".schedule .picker .start", function(){
 });
 
 // Methods for Results
+$(document).on("click","#schedule", function(){
+  var time1 = $('.start').timepicker('getTime');
+  var time2 = $('.end').timepicker('getTime');
+  var hour1 = time1.getHours();
+  var minutes1 = time1.getMinutes();
+  var hour2 = time2.getHours();
+  var minutes2 = time2.getMinutes();
+  var result = [[hour1, minutes1], [hour2, minutes2]];
+  addTime(result);
+});
 
             
