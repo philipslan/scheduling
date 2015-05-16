@@ -214,7 +214,7 @@ $(document).on("click",".main button",function(){
     $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>End</label><input type='text' class='form-control end ui-timepicker-input'></div></div>");
     $('.schedule .picker').append("<br/><button type='button' id= 'schedule' class='btn btn-default btn-info'>Schedule</button>")
     $('.schedule .picker').append("<hr/>");
-    $('.schedule').append("<div class='col-md-3 results'><div class='container'><div class='row'><h3>Scheduled Times</h3></div></div></div>");
+    $('.schedule').append("<div class='col-md-3 results'><div class='row'><h3>Scheduled Times</h3></div><div class= 'times'></div></div>");
     $('.schedule').fadeIn();
     $('.picker .start').timepicker({ 'scrollDefault': 'now', 'step': 15 });
     $('.picker .end').timepicker({ 'scrollDefault': 'now', 'step': 15 });
@@ -307,6 +307,7 @@ $(document).on("click","#schedule", function(){
   var minutes2 = time2.getMinutes();
   var result = [[hour1, minutes1], [hour2, minutes2]];
   addTime(result);
+  makeTime();
 });
 
             

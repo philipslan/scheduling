@@ -340,34 +340,49 @@ function addTime(result){
       safety:
       for(var j=0; j < arraytimes.length; j++){
         var cursor = arraytimes[j][0];
-        if (selected < cursor){
+        if (selected[0] < cursor[0]){
           arraytimes.splice(j,0,[selected,result]);
           found = false;
           break safety;
         }
-        else if (selected == cursor){
-          for(var k = 1; k < arraytimes[i].length; k++){
-            if (result[0][0] < arraytimes[j][k][0][0]){
-              arraytimes[j].splice(k,0,result);
-              found = false;
-              break safety;
-            }
-            else if (result[0][0] == arraytimes[j][k][0][0]){
-              if(result[0][1] < arraytimes[j][k][0][1]){
+        else if (selected[0] == cursor[0]){
+          if (selected[1] < cursor[1]){
+            arraytimes.splice(j,0,[selected,result]);
+            found = false;
+            break safety;
+          }
+          else if (selected[1] == cursor[1]){
+            for(var k = 1; k < arraytimes[j].length; k++){
+              if (result[0][0] < arraytimes[j][k][0][0]){
                 arraytimes[j].splice(k,0,result);
                 found = false;
                 break safety;
               }
+              else if (result[0][0] == arraytimes[j][k][0][0]){
+                if(result[0][1] < arraytimes[j][k][0][1]){
+                  arraytimes[j].splice(k,0,result);
+                  found = false;
+                  break safety;
+                }
+              }
             }
-          }
-          arraytimes[j].push(result);
-          found = false;
-          break safety;
+            arraytimes[j].push(result);
+            found = false;
+            break safety;
+          } 
         }
       }
       if(found){
         arraytimes.push([selected,result]);        
       }
+    }
+  }
+}
+
+function makeTime(){
+  for (var i = 0; i < arraytimes.length; i++){
+    for (var j = 0; j< arraytimes[i].length; j++){
+      // $('.times').
     }
   }
 }
