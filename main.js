@@ -207,7 +207,7 @@ $(document).on("click",".main button",function(){
   }
   else{
     $('.main').fadeOut();
-    $('.schedule').html("<div class='row title'><button type='button' class='btn btn-default btn-info back'>Back</button><h1>Selecting Times</h1></div>");
+    $('.schedule').html("<div class='row title'><div class='buttons'><button type='button' class='btn btn-default btn-info back'>Back</button><button type='button' class='btn btn-default btn-info confirm'>Confirm</button></div><h1>Selecting Times</h1></div>");
     $('.schedule').append("<div class='col-md-6 selected'><h3>Select dates and schedule a time</h3><div class='days'></div></div>");
     $('.schedule').append("<div class='col-md-3 picker'><div class='row'></div></div>");
     $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>Start</label><input type='text' class='form-control start ui-timepicker-input'></div></div>");
@@ -241,6 +241,7 @@ $(document).on("click",".main button",function(){
       }
       $(template).append("<div class='col-md-1 select-all'><h5 class='select'>Select</h5><h5>All</h5></div>");
     }
+    makeTime();
   }
 });
 
@@ -299,15 +300,20 @@ $(document).on("change",".schedule .picker .start", function(){
 
 // Methods for Results
 $(document).on("click","#schedule", function(){
-  var time1 = $('.start').timepicker('getTime');
-  var time2 = $('.end').timepicker('getTime');
-  var hour1 = time1.getHours();
-  var minutes1 = time1.getMinutes();
-  var hour2 = time2.getHours();
-  var minutes2 = time2.getMinutes();
-  var result = [[hour1, minutes1], [hour2, minutes2]];
-  addTime(result);
-  makeTime();
+  if (($(".start").val() == "") && ($(".end").val() == "")){
+    alert("Please schedule a time!");
+  }
+  else{
+    var time1 = $('.start').timepicker('getTime');
+    var time2 = $('.end').timepicker('getTime');
+    var hour1 = time1.getHours();
+    var minutes1 = time1.getMinutes();
+    var hour2 = time2.getHours();
+    var minutes2 = time2.getMinutes();
+    var result = [[hour1, minutes1], [hour2, minutes2]];
+    addTime(result);
+    makeTime();
+  }
 });
 
             

@@ -93,9 +93,15 @@ html, body{
 	text-align: center;
 	width: 12.5%;
 }
+.schedule .title .back{
+	margin-left: 1%;
+}
 .schedule .title button{
 	margin-top: 2%;
-	margin-left: 1%;
+	display: inline;
+}
+.schedule .title .confirm{
+	float: right;
 }
 .schedule .title h1{
 	text-align: center;
@@ -131,10 +137,6 @@ html, body{
 
 .schedule .picker .row{
 	margin-top: 7%;
-}
-
-.schedule .picker h5{
-	display: inline;
 }
 
 .schedule .results{

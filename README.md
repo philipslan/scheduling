@@ -2,4 +2,6 @@
 
 ## Things to do
 
-- Implement delete event creation
+- Change javascript alerts to modal
+- Implement modal for confirmation page
+
