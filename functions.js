@@ -380,9 +380,15 @@ function addTime(result){
 }
 
 function makeTime(){
+  $('.times').html("");
   for (var i = 0; i < arraytimes.length; i++){
+    var date = "<h5>" + String(arraytimes[i][0][0]) + "/" + String(arraytimes[i][0][1]) + "</h5>";
+    $('.times').append(date);
     for (var j = 0; j< arraytimes[i].length; j++){
-      // $('.times').
+      if (j != 0){
+        var times = "<h6>" + String(arraytimes[i][j][0][0]) + ":" + String(arraytimes[i][j][0][1]) + " - " + String(arraytimes[i][j][1][0]) + ":" + String(arraytimes[i][j][1][1]) + "</h6>";
+        $('.times').append(times);
+      }
     }
   }
 }

@@ -139,9 +139,14 @@ html, body{
 
 .schedule .results{
 	background: #D2FFFF;
+	overflow: auto;
 	height: 75%;
 }
 
 .schedule .results h3{
 	text-align: center;
+}
+
+.schedule .results h5{
+	text-decoration: underline;
 }
