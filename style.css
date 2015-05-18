@@ -133,12 +133,14 @@ html, body{
 .schedule .picker{
 	border: 1px solid #D2FFFF;
 	height: 75%;
+	overflow: auto;
 }
 
 .schedule .picker .row{
 	margin-top: 7%;
 }
 
+/* Results */
 .schedule .results{
 	background: #D2FFFF;
 	overflow: auto;
@@ -151,4 +153,8 @@ html, body{
 
 .schedule .results h5{
 	text-decoration: underline;
+}
+
+.modal{
+	padding-top: 10%;
 }

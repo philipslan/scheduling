@@ -279,8 +279,43 @@ Array.prototype.equals = function (array) {
 }  
 
 // Selection Functions
+function makeDaySelections(){
+  $('.schedule .selected .days').html("");
+  for (var i = 0; i < arrayday.length; i++){
+    $('.schedule .selected .days').append("<div class='row " + i + "'></div>");
+    var template = ".schedule .selected .days ." + String(i);
+    for (var j =0; j< arrayday[i].length; j++){
+      var date1 = arrayday[i][j][1];
+      var css = false;
+      if (arrayselected.length){
+        for (var k = 0; k < arrayselected.length; k++){
+          if (date1.equals(arrayselected[k])){
+            css = true;
+          }
+        }
+      }
+      date1 = String(date1[0]) + "/" + String(date1[1]);
+      var day1 = arrayday[i][j][2];
+      var div = $("<div class='col-md-1 day'><h5>" + day1 + "</h5><h5>" + date1 + "</h5></div>");
+      $(template).append(div);
+      if(css){
+        $(div).css('background', '#37FDFC');
+      }
+    }
+    $(template).append("<div class='col-md-1 select-all'><h5 class='select'>Select</h5><h5>All</h5></div>");
+  }
+}
+
 
 // Function for appending a date to the selected time options
+function displaySelect(){
+  $('.schedule .picker .selections').html("");
+  for(var i = 0; i< arrayselected.length; i++){
+    var string = String(arrayselected[i][0]) + "/" + String(arrayselected[i][1]);
+    $('.schedule .picker .selections').append("<h6><a><span class='glyphicon glyphicon-remove'></span></a>\t<span>" + string +"</span></h6>");
+  }
+}
+
 function addSelect(div){
   var selected = $(div).children();
   var value = $(selected).eq(1).html();
@@ -311,7 +346,7 @@ function addSelect(div){
       }
     }
     arrayselected.push(value);
-  }
+  }  
 }
 
 function removeSelect(div){

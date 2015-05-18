@@ -203,7 +203,7 @@ $(document).on("click",".main .days",function(){
 // Schedule Methods
 $(document).on("click",".main button",function(){
   if (!arrayday.length){
-    alert("Please select some days");
+    bootbox.alert("Please select some days");
   }
   else{
     $('.main').fadeOut();
@@ -213,35 +213,14 @@ $(document).on("click",".main button",function(){
     $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>Start</label><input type='text' class='form-control start ui-timepicker-input'></div></div>");
     $('.schedule .picker .row').append("<div class='col-md-6'><div class='input-group'><label class='control-label'>End</label><input type='text' class='form-control end ui-timepicker-input'></div></div>");
     $('.schedule .picker').append("<br/><button type='button' id= 'schedule' class='btn btn-default btn-info'>Schedule</button>")
-    $('.schedule .picker').append("<hr/>");
+    $('.schedule .picker').append("<hr/><div class='selections'></div>");
     $('.schedule').append("<div class='col-md-3 results'><div class='row'><h3>Scheduled Times</h3></div><div class= 'times'></div></div>");
     $('.schedule').fadeIn();
     $('.picker .start').timepicker({ 'scrollDefault': 'now', 'step': 15 });
     $('.picker .end').timepicker({ 'scrollDefault': 'now', 'step': 15 });
-    for (var i = 0; i < arrayday.length; i++){
-      $('.schedule .selected .days').append("<div class='row " + i + "'></div>");
-      var template = ".schedule .selected .days ." + String(i);
-      for (var j =0; j< arrayday[i].length; j++){
-        var date1 = arrayday[i][j][1];
-        var css = false;
-        if (arrayselected.length){
-          for (var k = 0; k < arrayselected.length; k++){
-            if (date1.equals(arrayselected[k])){
-              css = true;
-            }
-          }
-        }
-        date1 = String(date1[0]) + "/" + String(date1[1]);
-        var day1 = arrayday[i][j][2];
-        var div = $("<div class='col-md-1 day'><h5>" + day1 + "</h5><h5>" + date1 + "</h5></div>");
-        $(template).append(div);
-        if(css){
-          $(div).css('background', '#37FDFC');
-        }
-      }
-      $(template).append("<div class='col-md-1 select-all'><h5 class='select'>Select</h5><h5>All</h5></div>");
-    }
+    makeDaySelections();
     makeTime();
+    displaySelect();
   }
 });
 
@@ -255,10 +234,12 @@ $(document).on("click",".schedule .selected .days .day", function(){
   if ($(this).css('background-color') == "rgb(55, 253, 252)"){
     $(this).css('background-color','white');
     removeSelect(this);
+    displaySelect();
   } // Select
   else{
     $(this).css('background', '#37FDFC');
     addSelect(this);
+    displaySelect();
   }
 });
 
@@ -272,6 +253,7 @@ $(document).on("click",".schedule .selected .days .select-all",function(){
       $(selected).css('background-color','white');
       if(i< length-1){
         removeSelect(selected);
+        displaySelect();
       }
       else{
         $(selected).find(".select").html("Select");
@@ -284,6 +266,7 @@ $(document).on("click",".schedule .selected .days .select-all",function(){
       $(selected).css('background', '#37FDFC');
       if(k< length -1){
         addSelect(selected);
+        displaySelect();
       }
       else{
         $(selected).find(".select").html("Remove");
@@ -298,10 +281,16 @@ $(document).on("change",".schedule .picker .start", function(){
   $('.picker .end').val(timestep);
 });
 
+$(document).on("click",".schedule .picker a", function(){
+  var div = $(this).parent()
+  removeSelect(div);
+  $($(this).parent()).remove();
+  makeDaySelections();
+});
 // Methods for Results
 $(document).on("click","#schedule", function(){
   if (($(".start").val() == "") && ($(".end").val() == "")){
-    alert("Please schedule a time!");
+    bootbox.alert("Please schedule a time!");
   }
   else{
     var time1 = $('.start').timepicker('getTime');
