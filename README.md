@@ -2,4 +2,4 @@
 
 ## Things to do
 
-- Implement modal for confirmation page
+- Change time display from 24:00 to regular AM PM display

@@ -254,30 +254,6 @@ function removeDay(div){
   }
 }
 
-Array.prototype.equals = function (array) {
-  // if the other array is a falsy value, return
-  if (!array)
-    return false;
-
-  // compare lengths - can save a lot of time 
-  if (this.length != array.length)
-    return false;
-
-  for (var i = 0, l=this.length; i < l; i++) {
-    // Check if we have nested arrays
-    if (this[i] instanceof Array && array[i] instanceof Array) {
-      // recurse into the nested arrays
-      if (!this[i].equals(array[i]))
-        return false;       
-    }           
-    else if (this[i] != array[i]) { 
-      // Warning - two different object instances will never be equal: {x:20} != {x:20}
-      return false;   
-    }           
-  }       
-  return true;
-}  
-
 // Selection Functions
 function makeDaySelections(){
   $('.schedule .selected .days').html("");
@@ -417,13 +393,78 @@ function addTime(result){
 function makeTime(){
   $('.times').html("");
   for (var i = 0; i < arraytimes.length; i++){
-    var date = "<h5>" + String(arraytimes[i][0][0]) + "/" + String(arraytimes[i][0][1]) + "</h5>";
+    var date = "<div class='date" + i + "'><h5>" + String(arraytimes[i][0][0]) + "/" + String(arraytimes[i][0][1]) + "</h5></div>";
     $('.times').append(date);
     for (var j = 0; j< arraytimes[i].length; j++){
       if (j != 0){
-        var times = "<h6>" + String(arraytimes[i][j][0][0]) + ":" + String(arraytimes[i][j][0][1]) + " - " + String(arraytimes[i][j][1][0]) + ":" + String(arraytimes[i][j][1][1]) + "</h6>";
-        $('.times').append(times);
+        var times = "<h6><a><span class='glyphicon glyphicon-remove'></span></a>\t<span>" 
+        + String(arraytimes[i][j][0][0]) + ":" + String(arraytimes[i][j][0][1]) + " - " 
+        + String(arraytimes[i][j][1][0]) + ":" + String(arraytimes[i][j][1][1]) + "</span></h6>";
+        $('.times .date' + String(i) ).append(times);
       }
     }
   }
 }
+
+function removeTime(result){
+  var date1 = result[0];
+  var times = result[1];
+  var div = result[2];
+
+  for (var i = 0; i< arraytimes.length; i++){
+    var date2 = arraytimes[i][0];
+    if (date1.equals(date2)){
+      for (var j = 1; j< arraytimes[i].length; j++){
+        var times1 = arraytimes[i][j][0];
+        if (times[0].equals(times1)){
+          var times2 = arraytimes[i][j][1];
+          if (times[1].equals(times2)){
+            arraytimes[i].splice(j,1);
+          }
+        }
+      }
+      if (arraytimes[i].length == 1){
+        arraytimes.splice(i,1);
+      }
+    }
+  }
+}
+
+// Modal function
+function makeConfirmation(){
+  $('.bootbox-confirm .modal-dialog .bootbox-body').html("");
+  for (var i = 0; i < arraytimes.length; i++){
+    var date = "<h4>" + String(arraytimes[i][0][0]) + "/" + String(arraytimes[i][0][1]) + "</h4>";
+    $('.bootbox-confirm .modal-dialog .bootbox-body').append(date);
+    for (var j = 0; j< arraytimes[i].length; j++){
+      if (j != 0){
+        var times = "<h6>" + String(arraytimes[i][j][0][0]) + ":" + String(arraytimes[i][j][0][1]) + " - " + String(arraytimes[i][j][1][0]) + ":" + String(arraytimes[i][j][1][1]) + "</h6>";
+        $('.bootbox-confirm .modal-dialog .bootbox-body').append(times);
+      }
+    }
+  }
+}
+
+Array.prototype.equals = function (array) {
+  // if the other array is a falsy value, return
+  if (!array)
+    return false;
+
+  // compare lengths - can save a lot of time 
+  if (this.length != array.length)
+    return false;
+
+  for (var i = 0, l=this.length; i < l; i++) {
+    // Check if we have nested arrays
+    if (this[i] instanceof Array && array[i] instanceof Array) {
+      // recurse into the nested arrays
+      if (!this[i].equals(array[i]))
+        return false;       
+    }           
+    else if (this[i] != array[i]) { 
+      // Warning - two different object instances will never be equal: {x:20} != {x:20}
+      return false;   
+    }           
+  }       
+  return true;
+}  

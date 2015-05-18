@@ -17,7 +17,6 @@ $( document ).ready(function(){
 });
 
 // Month Methods
-
 function selectMonths(){
   $(".main .mon").click(function(){
     var a= $(this).html();
@@ -287,9 +286,10 @@ $(document).on("click",".schedule .picker a", function(){
   $($(this).parent()).remove();
   makeDaySelections();
 });
+
 // Methods for Results
 $(document).on("click","#schedule", function(){
-  if (($(".start").val() == "") || ($(".end").val() == "")){
+  if (($(".start").val() == "") || ($(".end").val() == "") || (!arrayselected.length)){
     bootbox.alert("Please schedule a time!");
   }
   else{
@@ -305,4 +305,40 @@ $(document).on("click","#schedule", function(){
   }
 });
 
-            
+$(document).on("click",".schedule .results a", function(){
+  var div = $(this).parent().parent();
+  var children = div.children();
+  var date1 = $(children).eq(0).html();
+  date1= date1.split("/");
+  date1= date1.map(function(x){
+    return parseInt(x,10); 
+  });
+  var div = $(this).parent();
+  var children = $(div).children();
+  var times = $(children).eq(1).html();
+  times = times.split(" ");
+  times.splice(1,1);
+  times[0] = times[0].split(":");
+  times[1] = times[1].split(":");
+  times[0] = times[0].map(function(x){
+    return parseInt(x,10); 
+  });
+  times[1] = times[1].map(function(x){
+    return parseInt(x,10); 
+  });
+  var result = [date1, times, $(div)];
+  removeTime(result);
+  makeTime();
+})
+
+$(document).on("click",".confirm", function(){  
+  bootbox.confirm({ 
+    title: "Please check and confirm these times",
+    size: 'small',
+    message: 'hello world',
+    callback: function(result){
+      // If true.. else nvmd
+    }
+  });
+  makeConfirmation();
+});
