@@ -289,7 +289,7 @@ $(document).on("click",".schedule .picker a", function(){
 });
 // Methods for Results
 $(document).on("click","#schedule", function(){
-  if (($(".start").val() == "") && ($(".end").val() == "")){
+  if (($(".start").val() == "") || ($(".end").val() == "")){
     bootbox.alert("Please schedule a time!");
   }
   else{
