@@ -9,6 +9,4 @@ Arraytimes is an array of arrays and is structred so that all the dates are sort
 Example of item in Arraytimes:
 Arraytimes: [ [11 , 1] , [[10 , 10] , [10 , 15]] , [[14 , 30] , [15 , 30]] ]
 Note: in this given example of Arraytimes there is only one date that has appointments. 
-So the Appointments would be on:
-November 1st: 10:10 AM - 10:15 AM
-November 1st: 02:30 PM - 03:30 PM
+There are scheduled appointments on: November 1st: 10:10 AM - 10:15 AM , November 1st: 02:30 PM - 03:30 PM
