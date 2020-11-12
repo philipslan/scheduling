@@ -1,20 +1,17 @@
-$( document ).ready(function(){
-  arraymon=[];
-  makeMonths();
-  selectMonths();
-  $(window).scroll(function () {
-  // set distance user needs to scroll before we start fadeIn
-    if ($(this).scrollTop() > ($(window).height()*.3)) {
-      $('.selecteddays').css("bottom","45%");
-    }
-    else{
-      $('.selecteddays').css("bottom","6%"); 
-    }
-  });
-  $('.selecteddays').hide();
-  $('.schedule').hide();
-  
+arraymon=[];
+makeMonths();
+selectMonths();
+$(window).scroll(function () {
+// set distance user needs to scroll before we start fadeIn
+  if ($(this).scrollTop() > ($(window).height()*.3)) {
+    $('.selecteddays').css("bottom","45%");
+  }
+  else{
+    $('.selecteddays').css("bottom","6%"); 
+  }
 });
+$('.selecteddays').hide();
+$('.schedule').hide();
 
 // Month Methods
 function selectMonths(){
